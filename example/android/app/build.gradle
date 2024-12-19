@@ -16,6 +16,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 34
+    namespace "io.github.edufolly.flutterbluetoothserialexample"
+
     lintOptions {
         disable 'InvalidPackage'
     }
