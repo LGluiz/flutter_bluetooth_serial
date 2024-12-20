@@ -1,45 +1,18 @@
-group 'io.github.edufolly.flutterbluetoothserial'
-version '1.0-SNAPSHOT'
-buildscript {
-    ext.kotlin_version = '1.7.10'
-
+allprojects {
     repositories {
         google()
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        mavenCentral()
     }
 }
-rootProject.allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-apply plugin: 'com.android.library'
-android {
-    compileSdkVersion 33
-    namespace 'flutter_bluetooth_serial'
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    defaultConfig {
-        minSdkVersion 19
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
-    dependencies {
-        implementation 'androidx.appcompat:appcompat:1.7.0'
-    }
-    buildToolsVersion '30.0.3'
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
 }
 
-dependencies {
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
